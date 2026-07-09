@@ -28,5 +28,42 @@
     "pr_auc": 0.0539,
     "accuracy": 0.6536,
     "positive_rate_in_predictions": 0.3491
+  },
+  "segmentation": {
+    "baseline_repeat_rate": 0.0304,
+    "tier_5_repeat_rate": 0.0539,
+    "tier_5_lift_vs_baseline": 1.77,
+    "tiers": [
+      {
+        "tier": "1 - Very Low",
+        "n_customers": 3800,
+        "repeat_rate": 0.0129,
+        "avg_predicted_proba": 0.3132
+      },
+      {
+        "tier": "2 - Low",
+        "n_customers": 3799,
+        "repeat_rate": 0.0205,
+        "avg_predicted_proba": 0.413
+      },
+      {
+        "tier": "3 - Medium",
+        "n_customers": 3800,
+        "repeat_rate": 0.0282,
+        "avg_predicted_proba": 0.4625
+      },
+      {
+        "tier": "4 - High",
+        "n_customers": 3799,
+        "repeat_rate": 0.0366,
+        "avg_predicted_proba": 0.5135
+      },
+      {
+        "tier": "5 - Very High",
+        "n_customers": 3800,
+        "repeat_rate": 0.0539,
+        "avg_predicted_proba": 0.6005
+      }
+    ]
   }
 }
