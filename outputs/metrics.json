@@ -1,0 +1,18 @@
+{
+  "baseline": {
+    "majority_class": {
+      "model": "majority_class",
+      "roc_auc": 0.5,
+      "pr_auc": 0.0304,
+      "accuracy": 0.9696,
+      "positive_rate_in_predictions": 0.0
+    },
+    "logistic_regression": {
+      "model": "logistic_regression",
+      "roc_auc": 0.6133,
+      "pr_auc": 0.0467,
+      "accuracy": 0.601,
+      "positive_rate_in_predictions": 0.4029
+    }
+  }
+}
