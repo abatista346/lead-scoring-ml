@@ -1,0 +1,20 @@
+# Kaggle credentials — never commit
+kaggle.json
+
+# Raw and processed data — large, third-party, not versioned
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
