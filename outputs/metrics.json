@@ -21,5 +21,12 @@
     "pr_auc": 0.0538,
     "accuracy": 0.6854,
     "positive_rate_in_predictions": 0.3146
+  },
+  "catboost": {
+    "model": "catboost",
+    "roc_auc": 0.6416,
+    "pr_auc": 0.0539,
+    "accuracy": 0.6536,
+    "positive_rate_in_predictions": 0.3491
   }
 }
