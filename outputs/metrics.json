@@ -74,5 +74,34 @@
         "avg_predicted_proba": 0.6005
       }
     ]
+  },
+  "tier_stability_analysis": {
+    "n_customers": 18998,
+    "reclassified_count": 448,
+    "reclassified_pct": 2.36,
+    "batch_quantile_edges": {
+      "H1 (Jan-Jun)": [
+        0.0379,
+        0.3854,
+        0.4387,
+        0.4842,
+        0.541,
+        0.8835
+      ],
+      "H2 (Jul-Dec)": [
+        0.0329,
+        0.3822,
+        0.44,
+        0.4879,
+        0.5463,
+        0.8712
+      ]
+    },
+    "fixed_edges": [
+      0.3838,
+      0.4392,
+      0.4861,
+      0.5433
+    ]
   }
 }
