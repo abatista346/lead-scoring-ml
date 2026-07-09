@@ -14,5 +14,12 @@
       "accuracy": 0.601,
       "positive_rate_in_predictions": 0.4029
     }
+  },
+  "xgboost": {
+    "model": "xgboost",
+    "roc_auc": 0.64,
+    "pr_auc": 0.0538,
+    "accuracy": 0.6854,
+    "positive_rate_in_predictions": 0.3146
   }
 }
