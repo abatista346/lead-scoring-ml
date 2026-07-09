@@ -30,6 +30,15 @@
     "positive_rate_in_predictions": 0.3491
   },
   "segmentation": {
+    "method": "fixed_probability_thresholds",
+    "fixed_thresholds": [
+      null,
+      0.3838,
+      0.4392,
+      0.4861,
+      0.5433,
+      null
+    ],
     "baseline_repeat_rate": 0.0304,
     "tier_5_repeat_rate": 0.0539,
     "tier_5_lift_vs_baseline": 1.77,
