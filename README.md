@@ -108,6 +108,8 @@ src/
   segment_customers.py <- 5-tier segmentation via fixed probability thresholds
   evaluate_models.py    <- ROC/PR curves, feature importance
   tier_stability_analysis.py <- quantifies fixed-threshold vs. quantile stability
+  statistical_evaluation.py <- bootstrap CIs, calibration, tier significance tests
+  business_impact.py     <- campaign economics, sensitivity analysis, README section
 notebooks/
   eda_storytelling.ipynb
 outputs/
@@ -127,9 +129,11 @@ outputs/
 8. `python src/segment_customers.py`
 9. `python src/evaluate_models.py`
 10. `python src/tier_stability_analysis.py`
-11. Optionally, open `notebooks/eda_storytelling.ipynb` for the full visual EDA
+11. `python src/statistical_evaluation.py` — bootstrap CIs, calibration, tier significance
+12. `python src/business_impact.py` — campaign economics; also regenerates the *Statistical Rigor* and *Business Recommendation* sections of this README
+13. Optionally, open `notebooks/eda_storytelling.ipynb` for the full visual EDA
 
 ## What I'd Improve Next
 
 1. Bring in `customer_zip_code_prefix` / geolocation data as a proper distance or region feature — geography was only used at the state level here and is likely under-exploited.
-2. Add proper probability calibration (e.g. isotonic regression) on top of the fixed thresholds, so tier cutoffs correspond to well-calibrated real-world probabilities rather than just a stable rank ordering — class-weighting for the imbalance currently distorts the raw probabilities away from true calibration.
+2. Replace the assumed contact uplift with a measured one: run a randomized holdout inside the targeted tiers and, with enough volume, move from a propensity model to an uplift model (e.g. a two-model or T-learner approach) that targets customers whose behavior the campaign actually changes.
