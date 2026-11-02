@@ -198,6 +198,10 @@ def plot_sensitivity(sensitivity: pd.DataFrame, share_grid: pd.DataFrame) -> Non
     plt.close(fig)
 
 
+def brl(x: float) -> str:
+    return f"-R${abs(x):,.0f}" if x < 0 else f"R${x:,.0f}"
+
+
 def write_readme_section(r: dict, stats: dict | None, gains: pd.DataFrame, sensitivity: pd.DataFrame) -> None:
     a = r["assumptions"]
     lines = [START_MARKER, "", "## Statistical Rigor", ""]
@@ -253,8 +257,8 @@ def write_readme_section(r: dict, stats: dict | None, gains: pd.DataFrame, sensi
         f"- Effect of contact: **+{a['relative_uplift']:.0%} relative** increase in repeat probability — *an assumption*, because this model measures propensity, not causal uplift",
         "",
         f"Under these assumptions a contact pays for itself only when a customer's calibrated repeat probability exceeds **{r['breakeven_calibrated_probability']:.1%}**. "
-        + (f"The profit-maximizing policy is to contact the top **{r['optimal_share_contacted']:.0%}** of first-time buyers, for an expected **R${r['profit_optimal_per_10k_customers_brl']:,.0f}** "
-           f"per 10,000 buyers, versus **R${r['profit_contact_everyone_per_10k_customers_brl']:,.0f}** for contacting everyone."
+        + (f"The profit-maximizing policy is to contact the top **{r['optimal_share_contacted']:.0%}** of first-time buyers, for an expected **{brl(r['profit_optimal_per_10k_customers_brl'])}** "
+           f"per 10,000 buyers, versus **{brl(r['profit_contact_everyone_per_10k_customers_brl'])}** for contacting everyone."
            if r["optimal_share_contacted"] > 0 else
            "No segment clears that bar, so the profit-maximizing decision under these assumptions is **not to run a paid campaign** — a legitimate outcome of the analysis."),
         "",

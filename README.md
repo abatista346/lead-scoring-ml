@@ -129,7 +129,7 @@ Point metrics on one split hide uncertainty, so every headline number is re-exam
 - Cost per contact: **R$0.20**
 - Effect of contact: **+15% relative** increase in repeat probability — *an assumption*, because this model measures propensity, not causal uplift
 
-Under these assumptions a contact pays for itself only when a customer's calibrated repeat probability exceeds **4.4%**. The profit-maximizing policy is to contact the top **14%** of first-time buyers, for an expected **R$111** per 10,000 buyers, versus **R$-627** for contacting everyone.
+Under these assumptions a contact pays for itself only when a customer's calibrated repeat probability exceeds **4.4%**. The profit-maximizing policy is to contact the top **14%** of first-time buyers, for an expected **R$111** per 10,000 buyers, versus **-R$627** (a loss) for contacting everyone.
 
 ![Campaign profit curve](outputs/figures/15_campaign_profit.png)
 
