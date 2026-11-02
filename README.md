@@ -93,6 +93,58 @@ Instead, tier boundaries here are **fixed absolute probability cutoffs** — com
 
 2.4% sounds small, but at scale it means thousands of customers get inconsistent treatment for no reason tied to their actual behavior — the kind of instability that erodes trust in a scoring system once it's actually running in production.
 
+<!-- BUSINESS_IMPACT:START -->
+
+## Statistical Rigor
+
+Point metrics on one split hide uncertainty, so every headline number is re-examined with 1,000 paired bootstrap resamples of the test set (`src/statistical_evaluation.py`).
+
+| Question | Result |
+|---|---|
+| CatBoost ROC-AUC, 95% CI | 0.618 – 0.663 |
+| XGBoost ROC-AUC, 95% CI | 0.617 – 0.662 |
+| CatBoost − XGBoost ROC-AUC, 95% CI | -0.010 to +0.012 (bootstrap p = 0.87) |
+| Brier score: raw → calibrated (constant base rate) | 0.2225 → 0.0294 (0.0295) |
+| Expected calibration error: raw → calibrated | 0.430 → 0.003 |
+| Tier 5 vs Tier 1 repeat rate (one-sided z-test) | 5.39% vs 1.29%, z = 10.0, p = 1.2e-23 |
+
+- **The CatBoost "win" is not statistically distinguishable from XGBoost** — the confidence interval of the difference includes zero. Either library is a defensible choice; the decision should rest on operational factors (native categorical handling, inference cost), not this AUC gap.
+- **Raw scores are not probabilities.** Balanced class weights push the average predicted score to 46.1% against a true repeat rate of 3.0%. Cross-fitted isotonic calibration (each customer calibrated by a model that never saw it) brings them back in line, which is required before any expected-value calculation below.
+- **The tier spread is real**: Tier 5 vs Tier 1 is significant at p = 1.2e-23, and the Wilson intervals of the extreme tiers do not overlap (figure below).
+
+![Calibration curve](outputs/figures/12_calibration_curve.png)
+![Tier rates with confidence intervals](outputs/figures/13_tier_rates_with_ci.png)
+
+## Business Recommendation
+
+**Decision framed:** after a customer's first order, should the CRM team send a win-back offer, and to whom?
+
+**Targeting efficiency.** Contacting the top 20% of first-time buyers by score reaches **34% of all future repeat buyers**, and the top decile repeats at **1.9x** the base rate of 3.0%.
+
+![Cumulative gains](outputs/figures/14_cumulative_gains.png)
+
+**Campaign economics (`src/business_impact.py`).** Assumptions are explicit and editable at the top of the script:
+
+- Value of a repeat order: R$100.05 (median first-order value of training-set repeat buyers) × 30% gross margin = **R$30.01** per repeat order
+- Cost per contact: **R$0.20**
+- Effect of contact: **+15% relative** increase in repeat probability — *an assumption*, because this model measures propensity, not causal uplift
+
+Under these assumptions a contact pays for itself only when a customer's calibrated repeat probability exceeds **4.4%**. The profit-maximizing policy is to contact the top **14%** of first-time buyers, for an expected **R$111** per 10,000 buyers, versus **R$-627** for contacting everyone.
+
+![Campaign profit curve](outputs/figures/15_campaign_profit.png)
+
+**How robust is that?** The answer depends far more on the unknown uplift than on the model. The grid below shows the best achievable profit and the share of buyers to contact for each combination:
+
+![Profit sensitivity](outputs/figures/16_profit_sensitivity.png)
+
+**Recommendation.**
+
+1. Use the score to *rank*, and the calibrated probability with the break-even rule above to decide *how deep* to go — never the raw class-weighted score.
+2. Before scaling, run a randomized holdout: within the targeted tiers, withhold the offer from a random control group and measure the true incremental repeat rate. That converts the single biggest assumption here into a measured number and tells you whether the campaign creates repeat purchases or just discounts ones that would have happened anyway.
+3. Re-run this script with the measured uplift and actual contact cost to set the final targeting depth.
+
+<!-- BUSINESS_IMPACT:END -->
+
 ## Architecture
 
 ```

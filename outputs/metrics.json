@@ -103,5 +103,284 @@
       0.4861,
       0.5433
     ]
+  },
+  "statistical_evaluation": {
+    "uncertainty": {
+      "n_bootstrap": 1000,
+      "catboost_roc_auc_ci95": [
+        0.6184,
+        0.6631
+      ],
+      "xgboost_roc_auc_ci95": [
+        0.6173,
+        0.6624
+      ],
+      "catboost_minus_xgboost_roc_auc": 0.0009,
+      "catboost_minus_xgboost_roc_auc_ci95": [
+        -0.0099,
+        0.0122
+      ],
+      "catboost_minus_xgboost_roc_auc_bootstrap_p": 0.874,
+      "catboost_pr_auc_ci95": [
+        0.0465,
+        0.065
+      ],
+      "xgboost_pr_auc_ci95": [
+        0.0465,
+        0.0648
+      ],
+      "catboost_minus_xgboost_pr_auc_ci95": [
+        -0.0047,
+        0.0049
+      ]
+    },
+    "calibration": {
+      "method": "isotonic regression, 5-fold cross-fitted on test predictions",
+      "brier_raw": 0.22248,
+      "brier_calibrated": 0.02936,
+      "brier_constant_base_rate": 0.0295,
+      "ece_raw": 0.4301,
+      "ece_calibrated": 0.0029,
+      "mean_predicted_raw": 0.4605,
+      "mean_predicted_calibrated": 0.0305,
+      "observed_rate": 0.0304,
+      "roc_auc_calibrated": 0.6327
+    },
+    "tier_significance": {
+      "test": "two-proportion z-test, Tier 5 > Tier 1 (one-sided)",
+      "tier_5_rate": 0.0539,
+      "tier_1_rate": 0.0129,
+      "z": 9.96,
+      "p_value": 1.19e-23,
+      "tiers": [
+        {
+          "tier": "1 - Very Low",
+          "n": 3800,
+          "repeat_rate": 0.0129,
+          "ci95": [
+            0.0098,
+            0.017
+          ]
+        },
+        {
+          "tier": "2 - Low",
+          "n": 3799,
+          "repeat_rate": 0.0205,
+          "ci95": [
+            0.0165,
+            0.0255
+          ]
+        },
+        {
+          "tier": "3 - Medium",
+          "n": 3800,
+          "repeat_rate": 0.0282,
+          "ci95": [
+            0.0234,
+            0.0339
+          ]
+        },
+        {
+          "tier": "4 - High",
+          "n": 3799,
+          "repeat_rate": 0.0366,
+          "ci95": [
+            0.0311,
+            0.043
+          ]
+        },
+        {
+          "tier": "5 - Very High",
+          "n": 3800,
+          "repeat_rate": 0.0539,
+          "ci95": [
+            0.0472,
+            0.0616
+          ]
+        }
+      ]
+    }
+  },
+  "business_impact": {
+    "assumptions": {
+      "contact_cost_brl": 0.2,
+      "gross_margin_rate": 0.3,
+      "relative_uplift": 0.15,
+      "repeat_order_value_brl_median_train": 100.05,
+      "margin_per_repeat_brl": 30.01
+    },
+    "base_repeat_rate": 0.0304,
+    "top_decile_lift": 1.89,
+    "top_20pct_share_of_repeaters_captured": 0.3391,
+    "breakeven_calibrated_probability": 0.0444,
+    "optimal_share_contacted": 0.1373,
+    "profit_optimal_per_10k_customers_brl": 111.0,
+    "profit_contact_everyone_per_10k_customers_brl": -627.0,
+    "sensitivity_profit_per_10k_brl": {
+      "0.05": {
+        "0.05": 80.0,
+        "0.1": 16.0,
+        "0.2": 2.0,
+        "0.4": 1.0,
+        "0.8": 1.0
+      },
+      "0.1": {
+        "0.05": 451.0,
+        "0.1": 159.0,
+        "0.2": 32.0,
+        "0.4": 3.0,
+        "0.8": 2.0
+      },
+      "0.15": {
+        "0.05": 888.0,
+        "0.1": 487.0,
+        "0.2": 111.0,
+        "0.4": 24.0,
+        "0.8": 4.0
+      },
+      "0.25": {
+        "0.05": 1793.0,
+        "0.1": 1336.0,
+        "0.2": 599.0,
+        "0.4": 107.0,
+        "0.8": 15.0
+      },
+      "0.4": {
+        "0.05": 3166.0,
+        "0.1": 2675.0,
+        "0.2": 1805.0,
+        "0.4": 637.0,
+        "0.8": 128.0
+      }
+    },
+    "sensitivity_share_contacted": {
+      "0.05": {
+        "0.05": 0.353,
+        "0.1": 0.026,
+        "0.2": 0.001,
+        "0.4": 0.0,
+        "0.8": 0.0
+      },
+      "0.1": {
+        "0.05": 0.81,
+        "0.1": 0.353,
+        "0.2": 0.026,
+        "0.4": 0.001,
+        "0.8": 0.0
+      },
+      "0.15": {
+        "0.05": 0.905,
+        "0.1": 0.666,
+        "0.2": 0.137,
+        "0.4": 0.024,
+        "0.8": 0.0
+      },
+      "0.25": {
+        "0.05": 0.979,
+        "0.1": 0.838,
+        "0.2": 0.591,
+        "0.4": 0.06,
+        "0.8": 0.011
+      },
+      "0.4": {
+        "0.05": 0.99,
+        "0.1": 0.949,
+        "0.2": 0.81,
+        "0.4": 0.353,
+        "0.8": 0.026
+      }
+    },
+    "gains_by_decile": [
+      {
+        "decile": 1,
+        "n": 1900,
+        "repeats": 109,
+        "repeat_rate": 0.0574,
+        "cum_share_contacted": 0.1,
+        "cum_share_repeaters_captured": 0.1886,
+        "lift": 1.8856
+      },
+      {
+        "decile": 2,
+        "n": 1900,
+        "repeats": 87,
+        "repeat_rate": 0.0458,
+        "cum_share_contacted": 0.2,
+        "cum_share_repeaters_captured": 0.3391,
+        "lift": 1.505
+      },
+      {
+        "decile": 3,
+        "n": 1900,
+        "repeats": 87,
+        "repeat_rate": 0.0458,
+        "cum_share_contacted": 0.3,
+        "cum_share_repeaters_captured": 0.4896,
+        "lift": 1.505
+      },
+      {
+        "decile": 4,
+        "n": 1899,
+        "repeats": 53,
+        "repeat_rate": 0.0279,
+        "cum_share_contacted": 0.4,
+        "cum_share_repeaters_captured": 0.5813,
+        "lift": 0.9173
+      },
+      {
+        "decile": 5,
+        "n": 1900,
+        "repeats": 50,
+        "repeat_rate": 0.0263,
+        "cum_share_contacted": 0.5,
+        "cum_share_repeaters_captured": 0.6678,
+        "lift": 0.865
+      },
+      {
+        "decile": 6,
+        "n": 1900,
+        "repeats": 60,
+        "repeat_rate": 0.0316,
+        "cum_share_contacted": 0.6,
+        "cum_share_repeaters_captured": 0.7716,
+        "lift": 1.038
+      },
+      {
+        "decile": 7,
+        "n": 1899,
+        "repeats": 39,
+        "repeat_rate": 0.0205,
+        "cum_share_contacted": 0.7,
+        "cum_share_repeaters_captured": 0.8391,
+        "lift": 0.675
+      },
+      {
+        "decile": 8,
+        "n": 1900,
+        "repeats": 40,
+        "repeat_rate": 0.0211,
+        "cum_share_contacted": 0.8,
+        "cum_share_repeaters_captured": 0.9083,
+        "lift": 0.692
+      },
+      {
+        "decile": 9,
+        "n": 1900,
+        "repeats": 31,
+        "repeat_rate": 0.0163,
+        "cum_share_contacted": 0.9,
+        "cum_share_repeaters_captured": 0.9619,
+        "lift": 0.5363
+      },
+      {
+        "decile": 10,
+        "n": 1900,
+        "repeats": 22,
+        "repeat_rate": 0.0116,
+        "cum_share_contacted": 1.0,
+        "cum_share_repeaters_captured": 1.0,
+        "lift": 0.3806
+      }
+    ]
   }
 }
