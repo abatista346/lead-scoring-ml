@@ -1,5 +1,7 @@
 # Lead Scoring — Customer Repeat-Purchase Propensity
 
+[![tests](https://github.com/abatista346/lead-scoring-ml/actions/workflows/tests.yml/badge.svg)](https://github.com/abatista346/lead-scoring-ml/actions/workflows/tests.yml)
+
 > ML lead scoring pipeline that predicts a customer's propensity to buy again from their first-order profile, comparing XGBoost vs. CatBoost and segmenting customers into 5 propensity tiers using fixed, production-stable probability thresholds instead of per-batch quantiles.
 
 ## Problem
@@ -184,6 +186,8 @@ outputs/
 11. `python src/statistical_evaluation.py` — bootstrap CIs, calibration, tier significance
 12. `python src/business_impact.py` — campaign economics; also regenerates the *Statistical Rigor* and *Business Recommendation* sections of this README
 13. Optionally, open `notebooks/eda_storytelling.ipynb` for the full visual EDA
+
+Run the test suite with `pip install pytest && pytest` — it uses synthetic data, so no dataset download is needed.
 
 ## What I'd Improve Next
 
